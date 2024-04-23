@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.18</version>
+  </parent>
+
+  <modules>
+    <module>producer</module>
+    <module>worker</module>
+    <module>writer</module>
+    <module>verifier</module>
+  </modules>
+
+  <groupId>rvelastic</groupId>
+  <artifactId>rvelastic</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>RVElastic</name>
+
+  <properties>
+    <java.version>11</java.version>
+
+    <!-- Pluging -->
+    <maven-docker.version>1.4.13</maven-docker.version>
+
+    <!-- Runtime -->
+    <lombok.version>1.18.30</lombok.version>
+    <micrometer.version>1.11.5</micrometer.version>
+    <maven-spring.version>2.4.0</maven-spring.version>
+    <json-data.version>0.2.0</json-data.version>
+    <jackson-databind.version>2.15.2</jackson-databind.version>
+    <jakarta.json-api.version>2.1.2</jakarta.json-api.version>
+    <httpclient.version>4.5.13</httpclient.version>
+    <httpcore.version>4.4.11</httpcore.version>
+    <awssdk.version>2.17.224</awssdk.version>
+    <opensearch-java.version>2.6.0</opensearch-java.version>
+    <json.version>20231013</json.version>
+
+    <!-- Docker -->
+    <docker.image.registry>stefno83</docker.image.registry>
+    <docker.image.prefix>${docker.image.registry}/rvelastic</docker.image.prefix>
+    <docker.image.tag>${project.version}</docker.image.tag>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Runtime -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+        <version>${micrometer.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${json.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opensearch.client</groupId>
+        <artifactId>opensearch-java</artifactId>
+        <version>${opensearch-java.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>auth</artifactId>
+        <version>${awssdk.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>apache-client</artifactId>
+        <version>${awssdk.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>regions</artifactId>
+        <version>${awssdk.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>${httpcore.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.json</groupId>
+        <artifactId>jakarta.json-api</artifactId>
+        <version>${jakarta.json-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson-databind.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${maven-spring.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>0.34.1</version>
+          <configuration>
+            <skip>true</skip>
+            <images>
+              <image>
+                <name>${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</name>
+                <build>
+                  <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                  <args>
+                    <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                  </args>
+                </build>
+              </image>
+            </images>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

@@ -1,0 +1,29 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: worker
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+  endpoint:
+    health:
+      enabled: true
+
+custom:
+  verifier:
+    field: "actionEnabled"
+    address: http://localhost:8082/verify
+  kafka:
+    address: "localhost:9093"
+    group: "my-cg"
+    source:
+      topic: "develop-1"
+    destination:
+      topic: "develop-2"

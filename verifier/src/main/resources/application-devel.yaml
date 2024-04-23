@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+  endpoint:
+    health:
+      enabled: true
+spring:
+  application:
+    name: verifier

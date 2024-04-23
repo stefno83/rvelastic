@@ -1,0 +1,39 @@
+{
+  "type": "user.action.v1",
+  "user": "john",
+  "action": "LOGIN",
+  "object": "1efd18d1-54e8-464a-829c-9d9ab8d46bb5",
+  "timestamp": "2024-01-02 09:16.24.374"
+}
+,
+{
+  "type": "user.action.v1",
+  "user": "john",
+  "action": "LOGOUT",
+  "object": "1efd18d1-54e8-464a-829c-9d9ab8d46bb5",
+  "timestamp": "2024-01-02 09:16.24.374"
+}
+,
+{
+  "type": "user.action.v1",
+  "user": "john",
+  "action": "VIEW",
+  "object": "1efd18d1-54e8-464a-829c-9d9ab8d46bb5",
+  "timestamp": "2024-01-02 09:16.24.374"
+}
+,
+{
+  "type": "user.action.v1",
+  "user": "john",
+  "action": "EDIT",
+  "object": "1efd18d1-54e8-464a-829c-9d9ab8d46bb5",
+  "timestamp": "2024-01-02 09:16.24.374"
+}
+,
+{
+  "type": "user.action.v1",
+  "user": "john",
+  "action": "DELETE",
+  "object": "1efd18d1-54e8-464a-829c-9d9ab8d46bb5",
+  "timestamp": "2024-01-02 09:16.24.374"
+}

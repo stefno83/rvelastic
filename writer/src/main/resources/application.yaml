@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+  application:
+    name: writer
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+  endpoint:
+    health:
+      enabled: true

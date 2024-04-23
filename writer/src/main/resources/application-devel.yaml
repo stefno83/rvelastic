@@ -1,0 +1,30 @@
+server:
+  port: 8088
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+  application:
+    name: writer
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+  endpoint:
+    health:
+      enabled: true
+
+custom:
+  kafka:
+    address: "localhost:9093"
+    source:
+      topic: "develop-2"
+    group: "writer-gr2"
+  opensearch:
+    address: "localhost"
+    port: 9200
+    index: "rvelastic.index"
+    user: admin
+    password: admin
