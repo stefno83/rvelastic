@@ -28,37 +28,37 @@ class VerifierTest {
 
     // ------------------------ VIEW ------------------------
     //VIEW role VIEW
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ PRINT ------------------------
     //PRINT role VIEW
     jsonObject.getJSONObject("action").put("name", "PRINT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ LOCK ------------------------
     //LOCK role VIEW
     jsonObject.getJSONObject("action").put("name", "LOCK");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ UNLOCK ------------------------
     //UNLOCK role VIEW
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ EDIT ------------------------
     //EDIT role VIEW
     jsonObject.getJSONObject("action").put("name", "EDIT");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ DELETE ------------------------
     //DELETE role VIEW
     jsonObject.getJSONObject("action").put("name", "DELETE");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
   }
 
@@ -74,36 +74,36 @@ class VerifierTest {
 
     // ------------------------ VIEW ------------------------
     //VIEW role EDITOR
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ PRINT ------------------------
     //PRINT role EDITOR
     jsonObject.getJSONObject("action").put("name", "PRINT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ LOCK ------------------------
     //LOCK role EDITOR object not locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     jsonObject.put("object", new JSONObject().put("name", "lock.123"));
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //LOCK role EDITOR object already locked
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ UNLOCK ------------------------
     //UNLOCK role EDITOR object not locked
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
     jsonObject.put("object", new JSONObject().put("name", "unlock.123"));
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //UNLOCK role EDITOR object locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     verifierRest.verify(jsonObject.toString());
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //UNLOCK role EDITOR object locked from another user
     jsonObject.getJSONObject("action").put("name", "LOCK");
@@ -111,20 +111,20 @@ class VerifierTest {
     verifierRest.verify(jsonObject.toString());
     jsonObject.put("username", "emartini");
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ EDIT ------------------------
     //EDIT role EDITOR object not locked
     jsonObject.getJSONObject("action").put("name", "EDIT");
     jsonObject.put("object", new JSONObject().put("name", "edit.1"));
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //EDIT role EDITOR object locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     verifierRest.verify(jsonObject.toString());
     jsonObject.getJSONObject("action").put("name", "EDIT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //EDIT role EDITOR object locked from another user
     jsonObject.put("object", new JSONObject().put("name", "edit.2"));
@@ -133,13 +133,13 @@ class VerifierTest {
     verifierRest.verify(jsonObject.toString());
     jsonObject.put("username", "emartini");
     jsonObject.getJSONObject("action").put("name", "EDIT");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ DELETE ------------------------
     //DELETE role EDITOR
     jsonObject.getJSONObject("action").put("name", "DELETE");
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
   }
@@ -156,36 +156,36 @@ class VerifierTest {
 
     // ------------------------ VIEW ------------------------
     //VIEW role ADMIN
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ PRINT ------------------------
     //PRINT role ADMIN
     jsonObject.getJSONObject("action").put("name", "PRINT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ LOCK ------------------------
     //LOCK role ADMIN object not locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     jsonObject.put("object", new JSONObject().put("name", "lock.123"));
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //LOCK role ADMIN object already locked
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ UNLOCK ------------------------
     //UNLOCK role ADMIN object not locked
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
     jsonObject.put("object", new JSONObject().put("name", "unlock.123"));
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //UNLOCK role ADMIN object locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     verifierRest.verify(jsonObject.toString());
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //UNLOCK role ADMIN object locked from another user
     jsonObject.getJSONObject("action").put("name", "LOCK");
@@ -193,7 +193,7 @@ class VerifierTest {
     verifierRest.verify(jsonObject.toString());
     jsonObject.put("username", "sparini");
     jsonObject.getJSONObject("action").put("name", "UNLOCK");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
     // ------------------------ EDIT ------------------------
@@ -201,13 +201,13 @@ class VerifierTest {
     //EDIT role ADMIN object not locked
     jsonObject.getJSONObject("action").put("name", "EDIT");
     jsonObject.put("object", new JSONObject().put("name", "edit.1"));
-    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertFalse(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //EDIT role ADMIN object locked
     jsonObject.getJSONObject("action").put("name", "LOCK");
     verifierRest.verify(jsonObject.toString());
     jsonObject.getJSONObject("action").put("name", "EDIT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     //EDIT role ADMIN object locked from another user
     jsonObject.put("object", new JSONObject().put("name", "edit.2"));
@@ -216,14 +216,14 @@ class VerifierTest {
     verifierRest.verify(jsonObject.toString());
     jsonObject.put("username", "sparini");
     jsonObject.getJSONObject("action").put("name", "EDIT");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
 
     // ------------------------------------------------------
 
     // ------------------------ DELETE ------------------------
     //DELETE role ADMIN
     jsonObject.getJSONObject("action").put("name", "DELETE");
-    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()));
+    Assertions.assertTrue(verifierRest.verify(jsonObject.toString()).contains("true"));
     // ------------------------------------------------------
 
   }
