@@ -13,7 +13,7 @@ This guide was created to give the possibility of running RVElastic locally on a
  ## Create docker images on local docker registry
  
 ### Compile project:
-    mvn clean packages
+    mvn clean package
 ### Compile docker images:
 
     mvn docker:build
